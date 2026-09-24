@@ -5,114 +5,300 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ClickCrate — Student Tech Store</title>
 <meta name="description" content="ClickCrate — gaming, desk setup and student tech accessories.">
-<!-- Using a universally trusted styling delivery link -->
-<link rel="stylesheet" href="https://cloudflare.com">
 <style>
-  html { scroll-behavior:smooth; }
-  body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background-color: #09090b; color: #f4f4f5; }
-  .hide-scrollbar::-webkit-scrollbar{display:none}
-  .hide-scrollbar{scrollbar-width:none}
-  .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .bg-zinc-950 { background-color: #09090b; }
-  .bg-zinc-900 { background-color: #18181b; }
-  .border-zinc-800 { border-color: #27272a; }
-  .text-zinc-400 { color: #a1a1aa; }
-  .text-zinc-500 { color: #71717a; }
+  /* Core layout rules written from scratch to bypass network blocks */
+  html { scroll-behavior: smooth; }
+  body { 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
+    background-color: #09090b; 
+    color: #f4f4f5; 
+    margin: 0; 
+    padding: 0; 
+  }
+  
+  /* Top Banner */
+  .announcement-bar {
+    background-color: #4ade80;
+    color: #000000;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  /* Header navigation layout */
+  header {
+    background-color: #09090b;
+    border-bottom: 1px solid #27272a;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    padding: 15px 20px;
+  }
+  .header-container {
+    max-w: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .logo-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-dot { color: #4ade80; }
+  .search-container {
+    flex-1;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .search-input {
+    width: 100%;
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  .basket-btn {
+    background: none;
+    border: none;
+    color: #d4d4d8;
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  /* Main content layout containers */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Sub-navigation category buttons row */
+  .category-nav {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+  }
+  .nav-link {
+    background: none;
+    border: none;
+    color: #a1a1aa;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .nav-link:hover { color: #4ade80; }
+  
+  /* Hero Showcase Section style card */
+  .hero-card {
+    background: linear-gradient(135deg, #18181b, #09090b);
+    border: 1px solid #27272a;
+    border-radius: 24px;
+    padding: 40px;
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .hero-card { grid-template-columns: 1fr; padding: 20px; }
+    .hero-images { display: none !important; }
+  }
+  .hero-tag {
+    background-color: #4ade80;
+    color: black;
+    font-size: 12px;
+    font-weight: 900;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+  }
+  .hero-highlight { color: #4ade80; }
+  .hero-desc { color: #a1a1aa; line-height: 1.5; }
+  .shop-now-btn {
+    background-color: #4ade80;
+    color: black;
+    font-weight: 900;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  .hero-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  .hero-img-box {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #27272a;
+  }
+  .hero-img-box img { width: 100%; height: 100%; object-fit: cover; }
+  
+  /* Features grids */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin: 30px 0;
+  }
+  .benefit-card {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 16px;
+    padding: 16px;
+  }
+  .benefit-card b { display: block; margin-bottom: 4px; }
+  .benefit-card p { margin: 0; font-size: 12px; color: #71717a; }
+  
+  /* Product Catalog grid structures */
+  .section-title { font-size: 28px; font-weight: 900; margin: 40px 0 20px 0; }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  .product-card {
+    background-color: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+  .img-container {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: black;
+    margin-bottom: 15px;
+    position: relative;
+  }
+  .img-container img { width: 100%; height: 100%; object-fit: cover; }
+  .card-tag {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: #4ade80;
+    color: black;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 10px;
+  }
+  .p-category { color: #71717a; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+  .p-name { font-size: 18px; font-weight: bold; margin: 5px 0; color: white; }
+  .p-desc { color: #a1a1aa; font-size: 12px; line-height: 1.4; margin-bottom: 15px; }
+  .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 15px; }
+  .current-price { font-size: 20px; font-weight: 900; }
+  .old-price { font-size: 12px; text-decoration: line-through; color: #71717a; }
+  .buy-btn {
+    width: 100%;
+    background-color: #4ade80;
+    color: black;
+    border: none;
+    font-weight: 900;
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .buy-btn:hover { background-color: #22c55e; }
+  
+  /* Utility badge configuration */
+  .badge { background-color: #4ade80; color: black; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 5px; }
 </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 min-h-screen">
+<body>
 
-<!-- Top announcement -->
-<div class="bg-green-400 text-black text-center text-xs sm:text-sm font-bold py-2 px-4">
+<div class="announcement-bar">
   🚚 FREE DELIVERY ON ORDERS OVER £40 · Student-friendly tech, shipped fast
 </div>
 
-<!-- Header -->
-<header class="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950">
-  <div class="max-w-7xl mx-auto px-4 py-3">
-    <div class="flex items-center justify-between gap-3">
-      <button onclick="goHome()" class="flex items-center gap-2">
-        <span class="text-green-400 text-2xl font-black">◆</span>
-        <span class="font-black text-xl sm:text-2xl tracking-tight text-white">ClickCrate</span>
-      </button>
-
-      <div class="hidden lg:flex text-xs text-zinc-400 font-semibold whitespace-nowrap">
-        Student Tech Store
-      </div>
-
-      <div class="flex-1 max-w-2xl mx-auto relative px-4">
-        <input id="searchInput" oninput="handleSearch()"
-          class="w-full bg-white text-black rounded-xl px-4 py-2 text-sm outline-none"
-          placeholder="Search mice, controller covers, desk mats...">
-      </div>
-
-      <button class="relative flex flex-col items-center text-xs text-zinc-300 hover:text-white px-2">
-        <span class="text-lg">🛒</span><span class="hidden sm:block">Basket</span>
-        <span id="cartCount" class="absolute -top-1 -right-2 bg-green-400 text-black text-[10px] rounded-full px-1.5 font-black">0</span>
-      </button>
+<header>
+  <div class="header-container">
+    <button onclick="goHome()" class="logo-btn">
+      <span class="logo-dot">◆</span>ClickCrate
+    </button>
+    
+    <div class="search-container">
+      <input id="searchInput" oninput="handleSearch()" class="search-input" placeholder="Search mice, controller gear, desk mats...">
     </div>
-
-    <nav class="hidden md:flex items-center gap-6 pt-3 text-sm font-semibold text-zinc-400">
-      <button onclick="filterCategory('All')" class="hover:text-green-400">All Products</button>
-      <button onclick="filterCategory('Mice')" class="hover:text-green-400">Gaming Mice</button>
-      <button onclick="filterCategory('Controller')" class="hover:text-green-400">Controller Gear</button>
-      <button onclick="filterCategory('Desk')" class="hover:text-green-400">Desk Mats</button>
-      <button onclick="filterCategory('Audio')" class="hover:text-green-400">Audio Setup</button>
-    </nav>
+    
+    <button class="basket-btn">
+      🛒 Basket <span id="cartCount" class="badge">0</span>
+    </button>
+  </div>
+  
+  <div class="header-container">
+    <div class="category-nav">
+      <button onclick="filterCategory('All')" class="nav-link">All Products</button>
+      <button onclick="filterCategory('Mice')" class="nav-link">Gaming Mice</button>
+      <button onclick="filterCategory('Controller')" class="nav-link">Controller Gear</button>
+      <button onclick="filterCategory('Desk')" class="nav-link">Desk Mats</button>
+      <button onclick="filterCategory('Audio')" class="nav-link">Audio Setup</button>
+    </div>
   </div>
 </header>
 
 <main>
-<!-- Hero -->
-<section class="max-w-7xl mx-auto px-4 pt-6">
-  <div class="rounded-3xl border border-zinc-800 bg-zinc-900 p-8 sm:p-12">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-      <div>
-        <span class="inline-block bg-green-400 text-black text-xs font-black px-3 py-1.5 rounded-full mb-5">DofE FRONTEND DEVELOPMENT BUILD</span>
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white">
-          Upgrade your <span class="text-green-400">setup.</span>
-        </h1>
-        <p class="text-zinc-400 mt-5 max-w-xl">
-          Premium honeycomb gaming mice, vibrant controller grips, custom docks, and ultra-glide LED desk mats built for the ultimate setup layout.
-        </p>
-        <div class="flex flex-wrap gap-3 mt-7">
-          <button onclick="document.getElementById('products').scrollIntoView()" class="bg-green-400 text-black font-black px-6 py-3 rounded-xl hover:bg-green-300">Browse Catalog</button>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-3">
-        <div class="w-full aspect-square rounded-2xl overflow-hidden border border-zinc-800">
-          <img class="w-full h-full object-cover" src="https://media.cx" alt="Helox Wireless Mouse">
-        </div>
-        <div class="w-full aspect-square rounded-2xl overflow-hidden border border-zinc-800 mt-8">
-          <img class="w-full h-full object-cover" src="https://media.cx" alt="Galaxy LED Desk Mat">
-        </div>
-      </div>
+  <!-- Hero Promo Spotlight Banner -->
+  <section class="hero-card">
+    <div>
+      <span class="hero-tag">DofE FRONTEND DEVELOPMENT BUILD</span>
+      <h1 class="hero-title">Upgrade your <span class="hero-highlight">setup.</span></h1>
+      <p class="hero-desc">Premium honeycomb gaming mice, vibrant controller grips, custom docks, and ultra-glide LED desk mats built for the ultimate setup layout.</p>
+      <button onclick="document.getElementById('catalog').scrollIntoView()" class="shop-now-btn">Browse Catalog</button>
     </div>
-  </div>
-</section>
+    <div class="hero-images">
+      <div class="hero-img-box"><img src="https://media.cx" alt="Featured Mouse"></div>
+      <div class="hero-img-box" style="margin-top: 20px;"><img src="https://media.cx" alt="Featured Mat"></div>
+    </div>
+  </section>
 
-<!-- Benefits -->
-<section class="max-w-7xl mx-auto px-4 py-8">
-  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>🚚 Fast delivery</b><p class="text-xs text-zinc-500 mt-1">Clear shipping framework.</p></div>
-    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>💻 Optimized UI</b><p class="text-xs text-zinc-500 mt-1">Responsive layout styling.</p></div>
-    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>↩ Easy returns</b><p class="text-xs text-zinc-500 mt-1">Simple user experience.</p></div>
-    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>🎓 Student focused</b><p class="text-xs text-zinc-500 mt-1">Affordable desktop upgrades.</p></div>
-  </div>
-</section>
+  <!-- Key Value Points Row -->
+  <section class="benefits-grid">
+    <div class="benefit-card"><b>🚚 Fast delivery</b><p>Clear shipping framework.</p></div>
+    <div class="benefit-card"><b>💻 Localized Custom CSS</b><p>Independent style engine.</p></div>
+    <div class="benefit-card"><b>↩ Easy returns</b><p>Simple consumer experience.</p></div>
+    <div class="benefit-card"><b>🎓 Student focused</b><p>Affordable desktop upgrades.</p></div>
+  </section>
 
-<!-- Products Section -->
-<section id="products" class="max-w-7xl mx-auto px-4 pb-16">
-  <div class="mb-6">
-    <p class="text-green-400 text-xs font-black uppercase tracking-widest">Shop</p>
-    <h2 class="text-3xl font-black mt-1 text-white">Popular products</h2>
-    <p id="resultsText" class="text-zinc-500 text-sm mt-1"></p>
-  </div>
-
-  <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Managed via JavaScript below -->
-  </div>
-</section>
+  <!-- Dynamic Section View -->
+  <section id="catalog">
+    <div class="section-title">Popular products</div>
+    <div id="productGrid" class="product-grid">
+      <!-- Generated items output automatically here -->
+    </div>
+  </section>
 </main>
 
 <script>
@@ -160,79 +346,6 @@ const products = [
   {
     id: 5,
     name: "Armored Hexagon Controller Skin",
-    category: "Controller",
-    price: 14.99,
-    originalPrice: 24.99,
-    image: "https://media.cx",
-    description: "Tactical dark geometric honeycomb patterned protection skin including matched mechanical thumb covers.",
-    tag: "Trending"
-  },
-  {
-    id: 6,
-    name: "Symbiote Venom Controller Grip",
-    category: "Controller",
-    price: 14.99,
-    originalPrice: 24.99,
-    image: "https://media.cx",
-    description: "High-contrast bold red and ink black custom graphic shell layout with matched textured analog button covers.",
-    tag: "Popular"
-  },
-  {
-    id: 7,
-    name: "Cyber Shard Geometry Controller Skin",
-    category: "Controller",
-    price: 12.99,
-    originalPrice: 19.99,
-    image: "https://media.cx",
-    description: "Monochrome sharp lines starburst patterns protective silicone shell skin armor shield overlay.",
-    tag: ""
-  },
-  {
-    id: 8,
-    name: "4-Slot Multi Joy-Con Charging Dock",
-    category: "Controller",
-    price: 21.99,
-    originalPrice: 34.99,
-    image: "https://media.cx",
-    description: "Compact desktop charger configuration capable of powering up to 4 portable controllers concurrently.",
-    tag: "Utility"
-  },
-  {
-    id: 9,
-    name: "Circular RGB Audio Tower Rack",
-    category: "Audio",
-    price: 39.99,
-    originalPrice: 59.99,
-    image: "https://media.cx",
-    description: "All-in-one circular headset tower and dual controller landing dock with integrated rainbow LED edge border bars.",
-    tag: "Premium"
-  },
-  {
-    id: 10,
-    name: "Cosmic Nebula RGB LED Desk Mat",
-    category: "Desk",
-    price: 29.99,
-    originalPrice: 44.99,
-    image: "https://media.cx",
-    description: "Deep violet stardust galaxy imagery bordered entirely by glowing customizable neon fiber optic edge strip piping.",
-    tag: "Best Seller"
-  },
-  {
-    id: 11,
-    name: "Samurai Monochromatic Art Desk Mat",
-    category: "Desk",
-    price: 24.99,
-    originalPrice: 39.99,
-    image: "https://media.cx",
-    description: "Woven smooth glide surface displaying custom ink wash artistic layout of a classic samurai silhouette landscape.",
-    tag: "Art Drop"
-  },
-  {
-    id: 12,
-    name: "Tidal Ice Moon Panoramic Desk Mat",
-    category: "Desk",
-    price: 22.99,
-    originalPrice: 34.99,
-    image: "https://media.cx",
+
 
 
