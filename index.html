@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClickCrate — Student Tech Store</title>
+<meta name="description" content="ClickCrate — gaming, desk setup and student tech accessories.">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  html { scroll-behavior:smooth; }
+  body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  .hide-scrollbar::-webkit-scrollbar{display:none}
+  .hide-scrollbar{scrollbar-width:none}
+  .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .toast{animation:toast .25s ease-out}
+  @keyframes toast{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .modal-in{animation:modal .2s ease-out}
+  @keyframes modal{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+</style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen">
+
+<!-- Top announcement -->
+<div class="bg-lime-400 text-black text-center text-xs sm:text-sm font-bold py-2 px-4">
+  🚚 FREE DELIVERY ON ORDERS OVER $40 · Student-friendly tech, shipped fast
+</div>
+
+<!-- Header -->
+<header class="sticky top-0 z-40 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
+  <div class="max-w-7xl mx-auto px-4 py-3">
+    <div class="flex items-center gap-3">
+      <button onclick="goHome()" class="flex items-center gap-2 shrink-0">
+        <span class="text-lime-400 text-2xl font-black">◆</span>
+        <span class="font-black text-xl sm:text-2xl tracking-tight">ClickCrate</span>
+      </button>
+
+      <div class="hidden lg:flex text-xs text-zinc-400 font-semibold whitespace-nowrap">
+        Student Tech Store
+      </div>
+
+      <div class="flex-1 max-w-2xl mx-auto relative">
+        <input id="searchInput" oninput="handleSearch()" onkeydown="if(event.key==='Enter') handleSearch()"
+          class="w-full bg-white text-black rounded-xl px-4 py-3 pr-12 text-sm outline-none focus:ring-2 focus:ring-lime-400"
+          placeholder="Search mice, controller covers, desk mats...">
+        <button onclick="handleSearch()" class="absolute right-1 top-1 bottom-1 bg-lime-400 text-black rounded-lg px-4 font-bold">⌕</button>
+      </div>
+
+      <button onclick="openAccount()" class="hidden sm:flex flex-col items-center text-xs text-zinc-300 hover:text-white">
+        <span class="text-lg">👤</span><span>Account</span>
+      </button>
+      <button onclick="toggleWishlist()" class="relative flex flex-col items-center text-xs text-zinc-300 hover:text-white">
+        <span class="text-lg">♡</span><span class="hidden sm:block">Saved</span>
+        <span id="wishCount" class="absolute -top-1 -right-2 bg-lime-400 text-black text-[10px] rounded-full px-1.5 font-black">0</span>
+      </button>
+      <button onclick="openCart()" class="relative flex flex-col items-center text-xs text-zinc-300 hover:text-white">
+        <span class="text-lg">🛒</span><span class="hidden sm:block">Basket</span>
+        <span id="cartCount" class="absolute -top-1 -right-2 bg-lime-400 text-black text-[10px] rounded-full px-1.5 font-black">0</span>
+      </button>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-6 pt-3 text-sm font-semibold text-zinc-400">
+      <button onclick="filterCategory('All')" class="hover:text-lime-400">All</button>
+      <button onclick="filterCategory('Mice')" class="hover:text-lime-400">Gaming Mice</button>
+      <button onclick="filterCategory('Controller')" class="hover:text-lime-400">PS5 Accessories</button>
+      <button onclick="filterCategory('Desk')" class="hover:text-lime-400">Desk Mats</button>
+      <button onclick="filterCategory('Audio')" class="hover:text-lime-400">Audio</button>
+      <button onclick="filterCategory('Deals')" class="hover:text-lime-400">Today's Deals</button>
+      <button onclick="document.getElementById('why').scrollIntoView()" class="hover:text-lime-400">Why ClickCrate?</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- Hero -->
+<section class="max-w-7xl mx-auto px-4 pt-6">
+  <div class="rounded-3xl border border-zinc-800 bg-gradient-to-br from-zinc-900 via-zinc-950 to-lime-950/30 overflow-hidden">
+    <div class="grid lg:grid-cols-2 gap-8 items-center p-7 sm:p-12">
+      <div>
+        <span class="inline-block bg-lime-400 text-black text-xs font-black px-3 py-1.5 rounded-full mb-5">BACK-TO-SCHOOL DROP</span>
+        <h1 class="text-4xl sm:text-6xl font-black leading-[.95] tracking-tight">
+          Upgrade your <span class="text-lime-400">setup.</span>
+        </h1>
+        <p class="text-zinc-400 mt-5 max-w-xl">
+          Gaming mice, PS5 accessories, oversized desk mats and student-friendly tech without the complicated shopping experience.
+        </p>
+        <div class="flex flex-wrap gap-3 mt-7">
+          <button onclick="document.getElementById('products').scrollIntoView()" class="bg-lime-400 text-black font-black px-6 py-3 rounded-xl hover:bg-lime-300">Shop products</button>
+          <button onclick="filterCategory('Deals'); document.getElementById('products').scrollIntoView()" class="border border-zinc-700 px-6 py-3 rounded-xl font-bold hover:bg-zinc-900">View deals</button>
+        </div>
+        <div class="flex gap-5 mt-7 text-xs text-zinc-400">
+          <span>✓ Secure checkout</span><span>✓ Easy returns</span><span>✓ Student prices</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="aspect-square rounded-2xl overflow-hidden border border-zinc-800">
+          <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=80" alt="Gaming mouse">
+        </div>
+        <div class="aspect-square rounded-2xl overflow-hidden border border-zinc-800 mt-8">
+          <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1616763355548-1b606f439f86?auto=format&fit=crop&w=900&q=80" alt="Gaming setup">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benefits -->
+<section id="why" class="max-w-7xl mx-auto px-4 py-8">
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>🚚 Fast delivery</b><p class="text-xs text-zinc-500 mt-1">Clear shipping estimates.</p></div>
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>🔒 Secure checkout</b><p class="text-xs text-zinc-500 mt-1">Ready for Stripe integration.</p></div>
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>↩ Easy returns</b><p class="text-xs text-zinc-500 mt-1">Simple customer experience.</p></div>
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4"><b>🎓 Student focused</b><p class="text-xs text-zinc-500 mt-1">Bundles and useful gear.</p></div>
+  </div>
+</section>
+
+<!-- Products -->
+<section id="products" class="max-w-7xl mx-auto px-4 pb-16">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+    <div>
+      <p class="text-lime-400 text-xs font-black uppercase tracking-widest">Shop</p>
+      <h2 class="text-3xl font-black mt-1">Popular products</h2>
+      <p id="resultsText" class="text-zinc-500 text-sm mt-1"></p>
+    </div>
+    <div class="flex gap-2">
+      <select id="sortSelect" onchange="renderProducts()" class="bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-sm">
+        <option value="featured">Featured</option>
+        <option value="low">Price: Low to high</option>
+        <option value="high">Price: High to low</option>
+        <option value="rating">Top rated</option>
+      </select>
+      <button onclick="openFilters()" class="md:hidden bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2 text-sm">Filters</button>
+    </div>
+  </div>
+
+  <div class="flex gap-2 overflow-x-auto hide-scrollbar mb-6">
+    <button class="catBtn bg-lime-400 text-black" onclick="filterCategory('All')">All</button>
+    <button class="catBtn" onclick="filterCategory('Mice')">Mice</button>
+    <button class="catBtn" onclick="filterCategory('Controller')">PS5</button>
+    <button class="catBtn" onclick="filterCategory('Desk')">Desk Mats</button>
+    <button class="catBtn" onclick="filterCategory('Audio')">Audio</button>
+    <button class="catBtn" onclick="filterCategory('Deals')">Deals</button>
+  </div>
+
+  <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+</section>
+</main>
+
+<footer class="border-t border-zinc-800 bg-zinc-950">
+  <div class="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-4 gap-8">
+    <div><div class="font-black text-xl">◆ ClickCrate</div><p class="text-zinc-500 text-sm mt-2">Gaming and student tech accessories.</p></div>
+    <div><h3 class="font-bold">Shop</h3><p class="text-zinc-500 text-sm mt-2">Gaming mice</p><p class="text-zinc-500 text-sm">PS5 accessories</p><p class="text-zinc-500 text-sm">Desk mats</p></div>
+    <div><h3 class="font-bold">Help</h3><p class="text-zinc-500 text-sm mt-2">Delivery</p><p class="text-zinc-500 text-sm">Returns</p><p class="text-zinc-500 text-sm">Contact</p></div>
+    <div><h3 class="font-bold">Newsletter</h3><div class="flex mt-2"><input class="min-w-0 flex-1 bg-zinc-900 border border-zinc-800 rounded-l-lg px-3 py-2 text-sm" placeholder="Email"><button onclick="toast('Thanks for subscribing!')" class="bg-lime-400 text-black px-3 rounded-r-lg font-bold">Join</button></div></div>
+  </div>
+  <div class="border-t border-zinc-900 text-center text-xs text-zinc-600 py-5">© 2026 ClickCrate. Demo storefront — connect a real backend before taking payments.</div>
+</footer>
+
+<!-- Cart drawer -->
+<div id="cartOverlay" class="fixed inset-0 bg-black/70 z-50 hidden" onclick="if(event.target===this)closeCart()">
+  <aside class="absolute right-0 top-0 h-full w-full max-w-md bg-zinc-950 border-l border-zinc-800 flex flex-col">
+    <div class="p-5 border-b border-zinc-800 flex justify-between items-center"><div><h2 class="text-xl font-black">Your basket</h2><p id="cartSub" class="text-xs text-zinc-500"></p></div><button onclick="closeCart()" class="text-2xl">×</button></div>
+    <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-3"></div>
+    <div class="border-t border-zinc-800 p-5">
+      <div class="flex justify-between text-sm text-zinc-400"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <div class="flex justify-between text-sm text-zinc-400 mt-2"><span>Delivery</span><span id="cartShipping">FREE</span></div>
+      <div class="flex justify-between font-black text-xl mt-4"><span>Total</span><span id="cartTotal" class="text-lime-400">$0.00</span></div>
+      <button onclick="openCheckout()" class="w-full mt-5 bg-lime-400 text-black font-black py-3 rounded-xl hover:bg-lime-300">Proceed to checkout</button>
+      <p class="text-[10px] text-zinc-600 text-center mt-3">Demo checkout — no real payment is processed.</p>
+    </div>
+  </aside>
+</div>
+
+<!-- Product modal -->
+<div id="productModal" class="fixed inset-0 z-[60] hidden bg-black/80 p-4 items-center justify-center" onclick="if(event.target===this)closeProduct()">
+  <div class="modal-in bg-zinc-950 border border-zinc-800 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+    <div id="productDetail"></div>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div id="checkoutModal" class="fixed inset-0 z-[70] hidden bg-black/80 p-4 items-center justify-center">
+  <div class="modal-in bg-zinc-950 border border-zinc-800 rounded-3xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
+    <div class="flex justify-between"><div><h2 class="text-2xl font-black">Checkout</h2><p class="text-zinc-500 text-sm">Demo checkout ready for a real payment provider.</p></div><button onclick="closeCheckout()" class="text-2xl">×</button></div>
+    <div class="grid md:grid-cols-2 gap-5 mt-6">
+      <div class="space-y-3">
+        <h3 class="font-bold">Delivery details</h3>
+        <input class="field" placeholder="Full name">
+        <input class="field" placeholder="Email address" type="email">
+        <input class="field" placeholder="Address">
+        <div class="grid grid-cols-2 gap-2"><input class="field" placeholder="Town/City"><input class="field" placeholder="Postcode"></div>
+      </div>
+      <div class="space-y-3">
+        <h3 class="font-bold">Order</h3>
+        <div id="checkoutSummary" class="bg-zinc-900 rounded-xl p-4"></div>
+        <button onclick="placeDemoOrder()" class="w-full bg-lime-400 text-black font-black py-3 rounded-xl">Place demo order</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Account modal -->
+<div id="accountModal" class="fixed inset-0 z-[70] hidden bg-black/80 p-4 items-center justify-center">
+  <div class="bg-zinc-950 border border-zinc-800 rounded-3xl max-w-md w-full p-6">
+    <div class="flex justify-between"><h2 class="text-2xl font-black">Your account</h2><button onclick="closeAccount()" class="text-2xl">×</button></div>
+    <p class="text-zinc-500 text-sm mt-2">This front-end demo stores your basket and saved products locally. Add a real authentication backend for customer accounts.</p>
+    <button onclick="toast('Account backend not connected yet.')" class="w-full mt-5 bg-zinc-800 py-3 rounded-xl font-bold">Sign in</button>
+  </div>
+</div>
+
+<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[100] hidden bg-white text-black font-bold text-sm px-5 py-3 rounded-xl shadow-2xl"></div>
+
+<script>
+const products = [
+ {id:1,name:"Honeycomb Matrix RGB Mouse",category:"Mice",price:39.99,old:49.99,rating:4.8,reviews:128,badge:"BEST SELLER",desc:"Ultra-light gaming mouse with RGB lighting and ergonomic shell.",img:"https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=80"},
+ {id:2,name:"Lightning Crackle Mouse",category:"Mice",price:24.99,old:34.99,rating:4.6,reviews:84,badge:"DEAL",desc:"High-DPI gaming mouse with a reactive neon-inspired shell.",img:"https://images.unsplash.com/photo-1605773527852-c546a8584ea3?auto=format&fit=crop&w=900&q=80"},
+ {id:3,name:"Crimson Striker Wireless",category:"Mice",price:34.99,old:44.99,rating:4.7,reviews:91,badge:"POPULAR",desc:"Wireless ergonomic mouse with long battery life and USB receiver.",img:"https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=900&q=80"},
+ {id:4,name:"PS5 Controller Silicone Cover",category:"Controller",price:14.99,old:19.99,rating:4.7,reviews:204,badge:"DEAL",desc:"Protective anti-slip silicone cover designed for comfortable grip.",img:"https://images.unsplash.com/photo-1605901309584-818e25960a8f?auto=format&fit=crop&w=900&q=80"},
+ {id:5,name:"RGB Headset & Controller Stand",category:"Controller",price:29.99,old:39.99,rating:4.5,reviews:73,badge:"POPULAR",desc:"Desktop stand for your headset and controllers with RGB lighting.",img:"https://images.unsplash.com/photo-1593118247619-e2d6f056869e?auto=format&fit=crop&w=900&q=80"},
+ {id:6,name:"Cyberpunk Controller Shell",category:"Controller",price:16.99,old:21.99,rating:4.6,reviews:67,badge:"NEW",desc:"Soft protective controller shell with a futuristic graphic finish.",img:"https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=900&q=80"},
+ {id:7,name:"Cosmic Nebula Desk Mat",category:"Desk",price:29.99,old:39.99,rating:4.9,reviews:311,badge:"BEST SELLER",desc:"Large stitched-edge desk mat with a deep-space graphic.",img:"https://images.unsplash.com/photo-1616627988487-7e0a0a3b4a5e?auto=format&fit=crop&w=900&q=80"},
+ {id:8,name:"Lunar Waves Desk Mat",category:"Desk",price:27.99,old:34.99,rating:4.7,reviews:188,badge:"DEAL",desc:"Thick rubber-backed mat with a clean icy wave design.",img:"https://images.unsplash.com/photo-1616763355603-9755a640a287?auto=format&fit=crop&w=900&q=80"},
+ {id:9,name:"Topographic Terrain Desk Mat",category:"Desk",price:31.99,old:39.99,rating:4.8,reviews:146,badge:"TRENDING",desc:"Oversized topographic-style graphic mat for gaming or studying.",img:"https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=900&q=80"},
+ {id:10,name:"USB Gaming Headset",category:"Audio",price:39.99,old:54.99,rating:4.5,reviews:119,badge:"DEAL",desc:"Comfort-focused headset for gaming, calls and study sessions.",img:"https://images.unsplash.com/photo-1599669454699-248893623440?auto=format&fit=crop&w=900&q=80"},
+ {id:11,name:"Compact Bluetooth Speaker",category:"Audio",price:22.99,old:29.99,rating:4.6,reviews:102,badge:"POPULAR",desc:"Compact wireless speaker for your desk, room or dorm.",img:"https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=900&q=80"},
+ {id:12,name:"RGB USB Desk Light",category:"Audio",price:18.99,old:24.99,rating:4.4,reviews:55,badge:"NEW",desc:"USB-powered ambient light for a better desk setup.",img:"https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=900&q=80"}
+];
+
+let cart = JSON.parse(localStorage.getItem("clickcrate_cart") || "[]");
+let wishlist = JSON.parse(localStorage.getItem("clickcrate_wishlist") || "[]");
+let activeCategory = "All";
+let searchTerm = "";
+
+const $ = id => document.getElementById(id);
+const money = n => "$" + n.toFixed(2);
+
+function save(){
+  localStorage.setItem("clickcrate_cart",JSON.stringify(cart));
+  localStorage.setItem("clickcrate_wishlist",JSON.stringify(wishlist));
+  updateCounts();
+}
+function updateCounts(){
+  $("cartCount").textContent=cart.reduce((a,b)=>a+b.qty,0);
+  $("wishCount").textContent=wishlist.length;
+}
+function stars(r){ return "★".repeat(Math.round(r)) + "☆".repeat(5-Math.round(r)); }
+
+function getVisible(){
+  let list = products.filter(p => {
+    const cat = activeCategory==="All" || activeCategory==="Deals" && p.old>p.price || p.category===activeCategory;
+    const text=(p.name+" "+p.category+" "+p.desc).toLowerCase();
+    return cat && text.includes(searchTerm.toLowerCase());
+  });
+  const sort=$("sortSelect").value;
+  if(sort==="low") list.sort((a,b)=>a.price-b.price);
+  if(sort==="high") list.sort((a,b)=>b.price-a.price);
+  if(sort==="rating") list.sort((a,b)=>b.rating-a.rating);
+  return list;
+}
+
+function renderProducts(){
+  const list=getVisible();
+  $("resultsText").textContent=`${list.length} product${list.length===1?"":"s"} available`;
+  $("productGrid").innerHTML=list.map(p=>`
+    <article class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-lime-400/50 transition">
+      <div class="relative bg-zinc-800 aspect-square overflow-hidden">
+        <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x800/18181b/a3e635?text=ClickCrate'">
+        <span class="absolute top-3 left-3 bg-lime-400 text-black text-[10px] font-black px-2 py-1 rounded">${p.badge}</span>
+        <button onclick="toggleWish(${p.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/60 backdrop-blur text-xl">${wishlist.includes(p.id)?"♥":"♡"}</button>
+      </div>
+      <div class="p-4">
+        <p class="text-[10px] text-lime-400 font-black uppercase tracking-widest">${p.category}</p>
+        <h3 class="font-extrabold mt-1">${p.name}</h3>
+        <p class="text-xs text-zinc-500 mt-1 line-clamp-2">${p.desc}</p>
+        <div class="text-yellow-400 text-xs mt-3">${stars(p.rating)} <span class="text-zinc-500">(${p.reviews})</span></div>
+        <div class="flex items-end justify-between mt-3">
+          <div><span class="text-xl font-black">${money(p.price)}</span> <span class="text-xs text-zinc-600 line-through">${money(p.old)}</span></div>
+        </div>
+        <div class="grid grid-cols-2 gap-2 mt-4">
+          <button onclick="openProduct(${p.id})" class="border border-zinc-700 rounded-xl py-2.5 text-xs font-bold hover:bg-zinc-800">Details</button>
+          <button onclick="addToCart(${p.id})" class="bg-lime-400 text-black rounded-xl py-2.5 text-xs font-black hover:bg-lime-300">Add to basket</button>
+        </div>
+      </div>
+    </article>`).join("");
+}
+function handleSearch(){
+  searchTerm=$("searchInput").value;
+  renderProducts();
+  $("products").scrollIntoView({behavior:"smooth"});
+}
+function filterCategory(cat){
+  activeCategory=cat;
+  searchTerm="";
+  $("searchInput").value="";
+  document.querySelectorAll(".catBtn").forEach(b=>{
+    b.classList.remove("bg-lime-400","text-black");
+    b.classList.add("bg-zinc-900","text-white");
+  });
+  renderProducts();
+  $("products").scrollIntoView({behavior:"smooth"});
+}
+function goHome(){ activeCategory="All"; searchTerm=""; $("searchInput").value=""; renderProducts(); window.scrollTo({top:0,behavior:"smooth"}); }
+
+function addToCart(id){
+  const found=cart.find(x=>x.id===id);
+  if(found) found.qty++;
+  else cart.push({id,qty:1});
+  save(); renderCart(); toast("Added to basket");
+}
+function removeCart(id){ cart=cart.filter(x=>x.id!==id); save(); renderCart(); }
+function changeQty(id,d){
+  const x=cart.find(x=>x.id===id);
+  if(!x)return;
+  x.qty+=d;
+  if(x.qty<=0) removeCart(id); else {save();renderCart();}
+}
+function cartTotals(){
+  const subtotal=cart.reduce((s,x)=>{const p=products.find(p=>p.id===x.id);return s+p.price*x.qty},0);
+  const shipping=subtotal===0||subtotal>=40?0:4.99;
+  return {subtotal,shipping,total:subtotal+shipping};
+}
+function renderCart(){
+  const t=cartTotals();
+  $("cartSub").textContent=`${cart.reduce((a,b)=>a+b.qty,0)} item(s)`;
+  $("cartSubtotal").textContent=money(t.subtotal);
+  $("cartShipping").textContent=t.shipping?money(t.shipping):"FREE";
+  $("cartTotal").textContent=money(t.total);
+  $("cartItems").innerHTML=cart.length?cart.map(x=>{
+    const p=products.find(p=>p.id===x.id);
+    return `<div class="flex gap-3 bg-zinc-900 border border-zinc-800 rounded-xl p-3">
+      <img src="${p.img}" class="w-20 h-20 rounded-lg object-cover">
+      <div class="flex-1 min-w-0"><h3 class="font-bold text-sm">${p.name}</h3><p class="text-lime-400 font-black mt-1">${money(p.price)}</p>
+      <div class="flex items-center gap-2 mt-2"><button onclick="changeQty(${p.id},-1)" class="w-7 h-7 bg-zinc-800 rounded">−</button><span class="text-sm">${x.qty}</span><button onclick="changeQty(${p.id},1)" class="w-7 h-7 bg-zinc-800 rounded">+</button><button onclick="removeCart(${p.id})" class="ml-auto text-xs text-red-400">Remove</button></div></div>
+    </div>`;
+  }).join(""):`<div class="text-center py-20 text-zinc-500"><div class="text-5xl">🛒</div><p class="font-bold mt-4">Your basket is empty</p><button onclick="closeCart();document.getElementById('products').scrollIntoView()" class="mt-4 bg-lime-400 text-black font-black px-4 py-2 rounded-xl">Start shopping</button></div>`;
+}
+function openCart(){ renderCart(); $("cartOverlay").classList.remove("hidden"); }
+function closeCart(){ $("cartOverlay").classList.add("hidden"); }
+
+function toggleWish(id){
+  wishlist=wishlist.includes(id)?wishlist.filter(x=>x!==id):[...wishlist,id];
+  save(); renderProducts(); toast(wishlist.includes(id)?"Saved to wishlist":"Removed from wishlist");
+}
+function toggleWishlist(){
+  if(!wishlist.length){toast("Your saved list is empty");return;}
+  activeCategory="All"; searchTerm="";
+  $("searchInput").value="";
+  const saved=products.filter(p=>wishlist.includes(p.id));
+  $("resultsText").textContent=`${saved.length} saved product${saved.length===1?"":"s"}`;
+  $("productGrid").innerHTML=saved.map(p=>`
+    <article class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+      <div class="relative aspect-square"><img src="${p.img}" class="w-full h-full object-cover"><button onclick="toggleWish(${p.id})" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/70 text-red-400">♥</button></div>
+      <div class="p-4"><h3 class="font-bold">${p.name}</h3><p class="text-lime-400 font-black mt-2">${money(p.price)}</p><button onclick="addToCart(${p.id})" class="w-full bg-lime-400 text-black font-black py-2.5 rounded-xl mt-3">Add to basket</button></div>
+    </article>`).join("");
+  $("products").scrollIntoView({behavior:"smooth"});
+}
+
+function openProduct(id){
+  const p=products.find(x=>x.id===id);
+  $("productDetail").innerHTML=`
+    <div class="grid md:grid-cols-2">
+      <div class="bg-zinc-900 min-h-[320px]"><img src="${p.img}" class="w-full h-full min-h-[320px] object-cover" onerror="this.src='https://placehold.co/800x800/18181b/a3e635?text=ClickCrate'"></div>
+      <div class="p-6 sm:p-8">
+        <div class="flex justify-between"><span class="text-lime-400 text-xs font-black">${p.badge}</span><button onclick="closeProduct()" class="text-2xl">×</button></div>
+        <p class="text-xs text-zinc-500 mt-5">${p.category}</p>
+        <h2 class="text-3xl font-black mt-1">${p.name}</h2>
+        <div class="text-yellow-400 mt-3">${stars(p.rating)} <span class="text-zinc-500 text-sm">${p.rating} · ${p.reviews} reviews</span></div>
+        <p class="text-zinc-400 mt-5 leading-relaxed">${p.desc}</p>
+        <ul class="text-sm text-zinc-400 space-y-2 mt-5"><li>✓ Quality-focused materials</li><li>✓ Designed for gaming and study setups</li><li>✓ 30-day return policy (connect your real policy)</li></ul>
+        <div class="mt-7"><span class="text-3xl font-black">${money(p.price)}</span> <span class="line-through text-zinc-600">${money(p.old)}</span></div>
+        <div class="grid grid-cols-2 gap-2 mt-5"><button onclick="toggleWish(${p.id})" class="border border-zinc-700 rounded-xl py-3 font-bold">♡ Save</button><button onclick="addToCart(${p.id});closeProduct()" class="bg-lime-400 text-black rounded-xl py-3 font-black">Add to basket</button></div>
+      </div>
+    </div>`;
+  $("productModal").classList.remove("hidden"); $("productModal").classList.add("flex");
+}
+function closeProduct(){ $("productModal").classList.add("hidden"); $("productModal").classList.remove("flex"); }
+
+function openCheckout(){
+  if(!cart.length){toast("Add something to your basket first");return;}
+  closeCart();
+  const t=cartTotals();
+  $("checkoutSummary").innerHTML=cart.map(x=>{const p=products.find(p=>p.id===x.id);return `<div class="flex justify-between text-sm py-1"><span>${p.name} × ${x.qty}</span><b>${money(p.price*x.qty)}</b></div>`}).join("")+`<hr class="border-zinc-800 my-3"><div class="flex justify-between font-black"><span>Total</span><span class="text-lime-400">${money(t.total)}</span></div>`;
+  $("checkoutModal").classList.remove("hidden");$("checkoutModal").classList.add("flex");
+}
+function closeCheckout(){ $("checkoutModal").classList.add("hidden");$("checkoutModal").classList.remove("flex"); }
+function placeDemoOrder(){
+  cart=[];save();closeCheckout();toast("Demo order placed successfully!");
+}
+function openAccount(){ $("accountModal").classList.remove("hidden");$("accountModal").classList.add("flex"); }
+function closeAccount(){ $("accountModal").classList.add("hidden");$("accountModal").classList.remove("flex"); }
+function openFilters(){toast("Use the category buttons and sort menu to filter products.");}
+function toast(msg){
+  const t=$("toast");t.textContent=msg;t.classList.remove("hidden");t.classList.add("toast");
+  clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.add("hidden"),2200);
+}
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeCart();closeProduct();closeCheckout();closeAccount();}});
+renderProducts();renderCart();updateCounts();
+</script>
+
+<style>
+.catBtn{background:#18181b;color:#fff;border:1px solid #27272a;border-radius:999px;padding:.55rem 1rem;font-size:.75rem;font-weight:800;white-space:nowrap}
+.catBtn:hover{border-color:#a3e635}
+.field{width:100%;background:#18181b;border:1px solid #27272a;border-radius:.75rem;padding:.75rem;color:white;outline:none}
+.field:focus{border-color:#a3e635}
+</style>
+</body>
+</html>
