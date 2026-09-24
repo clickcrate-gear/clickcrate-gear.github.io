@@ -189,7 +189,7 @@
   .img-container img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
   .card-tag {
     position: absolute;
@@ -264,14 +264,14 @@
       <button onclick="document.getElementById('catalog').scrollIntoView()" class="shop-now-btn">Browse Catalog</button>
     </div>
     <div class="hero-images" style="display: flex; gap: 10px;">
-      <div class="img-container" style="width: 140px; margin: 0;"><img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2318181b'/><path d='M50 20 C35 20 25 35 25 55 C25 75 35 80 50 80 C65 80 75 75 75 55 C75 35 65 20 50 20 Z' fill='none' stroke='%234ade80' stroke-width='4'/><line x1='50' y1='20' x2='50' y2='50' stroke='%234ade80' stroke-width='3'/><line x1='25' y1='50' x2='75' y2='50' stroke='%234ade80' stroke-width='2'/><circle cx='40' cy='35' r='3' fill='%234ade80'/><circle cx='60' cy='35' r='3' fill='%234ade80'/></svg>" alt="Featured Mouse"></div>
-      <div class="img-container" style="width: 140px; margin: 20px 0 0 0;"><img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2318181b'/><rect x='10' y='30' width='80' height='40' rx='5' fill='none' stroke='%23a855f7' stroke-width='4'/><circle cx='30' cy='50' r='8' fill='none' stroke='%23a855f7' stroke-width='3'/><circle cx='70' cy='50' r='8' fill='none' stroke='%23a855f7' stroke-width='3'/></svg>" alt="Featured Controller"></div>
+      <div class="img-container" style="width: 140px; margin: 0;"><img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23111827'/><path d='M50 20 C35 20 25 35 25 55 C25 75 35 80 50 80 C65 80 75 75 75 55 C75 35 65 20 50 20 Z' fill='none' stroke='%234ade80' stroke-width='4'/><line x1='50' y1='20' x2='50' y2='50' stroke='%234ade80' stroke-width='3'/><circle cx='40' cy='35' r='3' fill='%234ade80'/><circle cx='60' cy='35' r='3' fill='%234ade80'/></svg>" alt="Featured Mouse"></div>
+      <div class="img-container" style="width: 140px; margin: 20px 0 0 0;"><img src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23111827'/><rect x='15' y='35' width='70' height='35' rx='10' fill='none' stroke='%23a855f7' stroke-width='4'/><circle cx='35' cy='52' r='6' fill='%23a855f7'/><circle cx='65' cy='52' r='6' fill='%23a855f7'/></svg>" alt="Featured Mat"></div>
     </div>
   </section>
 
   <section class="benefits-grid">
     <div class="benefit-card"><b>🚚 Fast delivery</b><p>Clear shipping framework.</p></div>
-    <div class="benefit-card"><b>💻 Pure Embedded Code</b><p>Network filter bypass engine.</p></div>
+    <div class="benefit-card"><b>💻 Embedded Assets</b><p>Network bypass execution.</p></div>
     <div class="benefit-card"><b>↩ Easy returns</b><p>Simple consumer experience.</p></div>
     <div class="benefit-card"><b>🎓 Student focused</b><p>Affordable desktop upgrades.</p></div>
   </section>
@@ -283,7 +283,6 @@
 </main>
 
 <script>
-// Every image is converted to local vector data so your school proxy cannot block it
 const products = [
   {
     id: 1,
@@ -291,7 +290,7 @@ const products = [
     category: "Mice",
     price: 34.99,
     originalPrice: 49.99,
-    image: "data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 120 120'><rect width='120' height='120' fill='%231f1f23' rx='10'/><path d='M60 20 C40 20 30 38 30 65 C30 90 42 100 60 100 C78 100 90 90 90 65 C90 38 80 20 60 20 Z' fill='%23111' stroke='%234ade80' stroke-width='3'/><path d='M45 60 h30 M52 65 h16 M48 72 h24 M55 78 h10 M45 45 h30' stroke='%234ade80' stroke-width='2' stroke-dasharray='3,3'/><rect x='57' y='30' width='6' height='12' rx='2' fill='%234ade80'/></svg>",
+    image: "data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 120 120'><rect width='120' height='120' fill='%2318181b'/><path d='M60 20 C40 20 30 38 30 65 C30 90 42 100 60 100 C78 100 90 90 90 65 C90 38 80 20 60 20 Z' fill='%2309090b' stroke='%234ade80' stroke-width='3'/><path d='M45 60 h30 M52 65 h16 M48 72 h24 M45 45 h30' stroke='%234ade80' stroke-width='2' stroke-dasharray='3,3'/><rect x='57' y='30' width='6' height='12' rx='2' fill='%234ade80'/></svg>",
     description: "Ultralight weight hex chassis design incorporating embedded interior cycling dynamic RGB spectrum glowing channels.",
     tag: "Top Rated"
   },
@@ -301,3 +300,4 @@ const products = [
     category: "Mice",
     price: 29.99,
     originalPrice: 44.99,
+
