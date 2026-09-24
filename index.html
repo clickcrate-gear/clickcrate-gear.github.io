@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,6 @@
 <title>ClickCrate — Student Tech Store</title>
 <meta name="description" content="ClickCrate — gaming, desk setup and student tech accessories.">
 <style>
-  /* Core layout rules written from scratch to bypass network blocks */
   html { scroll-behavior: smooth; }
   body { 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
@@ -15,8 +15,6 @@
     margin: 0; 
     padding: 0; 
   }
-  
-  /* Top Banner */
   .announcement-bar {
     background-color: #4ade80;
     color: #000000;
@@ -25,8 +23,6 @@
     font-weight: bold;
     font-size: 14px;
   }
-  
-  /* Header navigation layout */
   header {
     background-color: #09090b;
     border-bottom: 1px solid #27272a;
@@ -56,7 +52,7 @@
   }
   .logo-dot { color: #4ade80; }
   .search-container {
-    flex-1;
+    flex: 1;
     max-width: 500px;
     margin: 0 auto;
     width: 100%;
@@ -80,15 +76,11 @@
     font-size: 14px;
     font-weight: bold;
   }
-  
-  /* Main content layout containers */
   main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
   }
-  
-  /* Sub-navigation category buttons row */
   .category-nav {
     display: flex;
     gap: 20px;
@@ -103,8 +95,6 @@
     cursor: pointer;
   }
   .nav-link:hover { color: #4ade80; }
-  
-  /* Hero Showcase Section style card */
   .hero-card {
     background: linear-gradient(135deg, #18181b, #09090b);
     border: 1px solid #27272a;
@@ -160,8 +150,6 @@
     border: 1px solid #27272a;
   }
   .hero-img-box img { width: 100%; height: 100%; object-fit: cover; }
-  
-  /* Features grids */
   .benefits-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -176,8 +164,6 @@
   }
   .benefit-card b { display: block; margin-bottom: 4px; }
   .benefit-card p { margin: 0; font-size: 12px; color: #71717a; }
-  
-  /* Product Catalog grid structures */
   .section-title { font-size: 28px; font-weight: 900; margin: 40px 0 20px 0; }
   .product-grid {
     display: grid;
@@ -232,8 +218,6 @@
     cursor: pointer;
   }
   .buy-btn:hover { background-color: #22c55e; }
-  
-  /* Utility badge configuration */
   .badge { background-color: #4ade80; color: black; font-size: 10px; padding: 2px 6px; border-radius: 10px; margin-left: 5px; }
 </style>
 </head>
@@ -270,7 +254,6 @@
 </header>
 
 <main>
-  <!-- Hero Promo Spotlight Banner -->
   <section class="hero-card">
     <div>
       <span class="hero-tag">DofE FRONTEND DEVELOPMENT BUILD</span>
@@ -279,12 +262,11 @@
       <button onclick="document.getElementById('catalog').scrollIntoView()" class="shop-now-btn">Browse Catalog</button>
     </div>
     <div class="hero-images">
-      <div class="hero-img-box"><img src="https://media.cx" alt="Featured Mouse"></div>
-      <div class="hero-img-box" style="margin-top: 20px;"><img src="https://media.cx" alt="Featured Mat"></div>
+      <div class="hero-img-box"><img src="mouse1.png" alt="Featured Mouse"></div>
+      <div class="hero-img-box" style="margin-top: 20px;"><img src="desk1.png" alt="Featured Mat"></div>
     </div>
   </section>
 
-  <!-- Key Value Points Row -->
   <section class="benefits-grid">
     <div class="benefit-card"><b>🚚 Fast delivery</b><p>Clear shipping framework.</p></div>
     <div class="benefit-card"><b>💻 Localized Custom CSS</b><p>Independent style engine.</p></div>
@@ -292,7 +274,6 @@
     <div class="benefit-card"><b>🎓 Student focused</b><p>Affordable desktop upgrades.</p></div>
   </section>
 
-  <!-- Dynamic Section View -->
   <section id="catalog">
     <div class="section-title">Popular products</div>
     <div id="productGrid" class="product-grid">
@@ -309,7 +290,7 @@ const products = [
     category: "Mice",
     price: 34.99,
     originalPrice: 49.99,
-    image: "https://media.cx",
+    image: "mouse1.png",
     description: "Ultralight weight hex chassis design incorporating embedded interior cycling dynamic RGB spectrum glowing channels.",
     tag: "Top Rated"
   },
@@ -319,7 +300,7 @@ const products = [
     category: "Mice",
     price: 29.99,
     originalPrice: 44.99,
-    image: "https://media.cx",
+    image: "mouse2.png",
     description: "Striking illuminated neon tribal mask graphic layout complete with bottom-vented honeycomb shell structure.",
     tag: "New Drop"
   },
@@ -329,7 +310,7 @@ const products = [
     category: "Mice",
     price: 24.99,
     originalPrice: 39.99,
-    image: "https://media.cx",
+    image: "mouse3.png",
     description: "Ergonomic deep curved palm rests featuring multi-level side macro inputs and standard ruby breathing LEDs.",
     tag: ""
   },
@@ -339,13 +320,36 @@ const products = [
     category: "Mice",
     price: 19.99,
     originalPrice: 29.99,
-    image: "https://media.cx",
+    image: "mouse4.png",
     description: "Intricate cybernetic crackle skin overlay radiating multi-colored neon breathing backlights.",
     tag: "Sale"
   },
   {
     id: 5,
     name: "Armored Hexagon Controller Skin",
+    category: "Controller",
+    price: 14.99,
+    originalPrice: 24.99,
+    image: "skin1.png",
+    description: "Tactical dark geometric honeycomb patterned protection skin including matched mechanical thumb covers.",
+    tag: "Trending"
+  },
+  {
+    id: 6,
+    name: "Symbiote Venom Controller Grip",
+    category: "Controller",
+    price: 14.99,
+    originalPrice: 24.99,
+    image: "skin2.png",
+    description: "High-contrast bold red and ink black custom graphic shell layout with matched textured analog button covers.",
+    tag: "Popular"
+  },
+  {
+    id: 7,
+    name: "Cyber Shard Geometry Controller Skin",
+    category: "Controller",
+    price: 12.99,
+    originalPrice: 19.99,
 
 
 
